@@ -1,0 +1,70 @@
+body { font-family:Verdana; font-size:14px; margin:0;}
+
+#container {margin:0 auto; width:1000px;}
+#header { height:100px; margin-bottom:5px;border:1px solid #96C2F1;background-color: #EFF7FF;}
+#develop #workflow #control{ margin-bottom:5px;}
+#sidebar { float:left; width:260px; height:714px; border:1px solid #D3D3D3;background-color: #FFFFFF;}
+#divButton { float:right; width:725px; height:40px;border:1px solid #D3D3D3;background-color: #FFFFFF;}
+#divText { float:right; width:725px; height:340px; border:0px solid #D3D3D3;background-color: #FFFFFF;}
+#divLog { float:right; width:725px; height:320px; border:0px solid #D3D3D3;background-color: #FFFFFF;}
+.margin {float:right; width:725px; margin-bottom:5px;}
+.divbc { float:right; width:1000px; height:714px; border:1px solid #D3D3D3;background-color: #FFFFFF;}
+
+
+.menu {
+	width: 100%;
+	border-bottom: 2px solid #D3D3D3;
+	text-align: left;
+	margin-bottom: 5px;
+	margin-top: 10px;
+	height:30px;
+}
+.menu .menu-item {
+	padding: 1px 10px 1px;
+	margin-left: 6px;
+	white-space: nowrap;
+	border: 1px solid #D3D3D3;
+	border-bottom: none;
+	background-color: #FFFFFF;
+	float: left;
+	height: 24px;
+	line-height: 24px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.menu .menu-item-active {
+	background-color: #F7F7F7;
+	cursor: pointer;
+}
+
+.menu .menu-item-mouseover {
+	background-color:#FFFFFF;
+	cursor: pointer;
+}
+
+
+
+.menu .menu-right {
+	width: 100%;
+}
+.menu .menu-right .menu-right-item-wrap {
+	float: right;
+}
+.menu .menu-right .menu-right-item-wrap .menu-right-item {
+	white-space: nowrap;
+	height: 18px;
+	line-height: 18px;
+	margin-top: 5px;
+	padding: 1px 3px 0px;
+	margin: 7px 3px 0px 3px;
+	float: left;
+}
+
+.ztree li span.button.add {
+	margin-left:2px; 
+	margin-right: -1px; 
+	background-position:-144px 0; 
+	vertical-align:top; 
+	*vertical-align:middle
+}

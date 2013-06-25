@@ -12,11 +12,11 @@ import com.yunat.workflow.web.domain.LoginForm;
 @Controller
 public class LoginController {
 
-	@RequestMapping(value = "login")
+	@RequestMapping(value = "login.do")
 	public ModelAndView login(HttpServletRequest request,
 			HttpServletResponse response, LoginForm command) {
 		String username = command.getUsername();
-		ModelAndView mv = new ModelAndView("/index/index", "command",
+		ModelAndView mv = new ModelAndView("/develop/develop", "command",
 				"LOGIN SUCCESS, " + username);
 		return mv;
 	}
