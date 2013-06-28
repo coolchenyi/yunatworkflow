@@ -10,7 +10,11 @@
 <script type="text/javascript" src="jquery/jquery.ztree.core-3.5.js"></script>
 <script type="text/javascript" src="jquery/jquery.ztree.excheck-3.5.js"></script>
 <script type="text/javascript" src="jquery/jquery.ztree.exedit-3.5.js"></script>
-<script type="text/javascript" src="js/develop/develop.js"></script>
+<script type="text/javascript" src="js/development/develop.js"></script>
+<script src="jquery/jquery.ui.draggable.js" type="text/javascript"></script>
+		
+<script src="jquery/jquery.alerts.js" type="text/javascript"></script>
+<link href="css/jquery.alerts.css" rel="stylesheet" type="text/css" media="screen" />
 
 </head>
 

@@ -30,7 +30,7 @@ public class LoginController {
 		AdminInfo tmp = loginService.getAdminInfo(username);
 		logger.info("tmp" + tmp.getUsername() + " " + tmp.getPassword());
 
-		ModelAndView mv = new ModelAndView("/develop/develop", "command",
+		ModelAndView mv = new ModelAndView("/development/develop", "command",
 				"LOGIN SUCCESS, " + username);
 		return mv;
 	}

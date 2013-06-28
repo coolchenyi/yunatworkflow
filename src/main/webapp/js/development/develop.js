@@ -92,7 +92,8 @@ function showRemoveBtn(treeId, treeNode) {
 	return !treeNode.isFirstNode;
 }
 function showRenameBtn(treeId, treeNode) {
-	return !treeNode.isLastNode;
+	//return !treeNode.isLastNode;
+	return true;
 }
 function showLog(str) {
 	if (!log) log = $("#log");
@@ -113,14 +114,31 @@ function getTime() {
 var newCount = 1;
 function addHoverDom(treeId, treeNode) {
 	var sObj = $("#" + treeNode.tId + "_span");
-	if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
+	if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0 || !treeNode.isParent) return;
 	var addStr = "<span class='button add' id='addBtn_" + treeNode.tId + "' title='add node' onfocus='this.blur();'></span>";
 	sObj.after(addStr);
 	var btn = $("#addBtn_"+treeNode.tId);
 	if (btn) btn.bind("click", function(){
-		var zTree = $.fn.zTree.getZTreeObj("tree");
-		zTree.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, name:"new node" + (newCount++)});
-		return false;
+		jPrompt('支持文件夹及.hive文件:', '', '新建节点', function(r) {
+			rarray = r.split(".");
+			isfolder = false;
+			if (r == ""){
+				return;
+			}
+			if (rarray.length == 1){
+				isfolder = true;
+			}
+			if(rarray.length == 2 && rarray[1]== "hive"){
+				isfolder = false;
+			}
+			if(rarray.length > 2){
+				jAlert("目前只支持.hive文件","友情提示");
+				return;
+			}
+			var zTree = $.fn.zTree.getZTreeObj("tree");
+			zTree.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, name:r, isParent:isfolder});
+			return false;
+		});
 	});
 };
 function removeHoverDom(treeId, treeNode) {
@@ -132,22 +150,25 @@ function selectAll() {
 }
 
 var zNodes =[
-	{ id:1, pId:0, name:"父节点 1", open:true},
-	{ id:11, pId:1, name:"叶子节点 1-1"},
-	{ id:12, pId:1, name:"叶子节点 1-2"},
-	{ id:13, pId:1, name:"叶子节点 1-3"},
-	{ id:2, pId:0, name:"父节点 2", open:true},
-	{ id:21, pId:2, name:"叶子节点 2-1"},
-	{ id:22, pId:2, name:"叶子节点 2-2"},
-	{ id:23, pId:2, name:"叶子节点 2-3"},
-	{ id:3, pId:0, name:"父节点 3", open:true},
-	{ id:31, pId:3, name:"叶子节点 3-1"},
-	{ id:32, pId:3, name:"叶子节点 3-2"},
-	{ id:33, pId:3, name:"叶子节点 3-3"}
+	{ "id":"1", "pId":"0", "name":"父节点 1", "open":"true"},
+	{ "id":"11", "pId":"1", "name":"叶子节点 1-1"},
+	{ "id":"12", "pId":"1", "name":"叶子节点 1-2"},
+	{ "id":"13", "pId":"1", "name":"叶子节点 1-3"}
 ];
 
 $(document).ready(function(){
 	var t = $("#tree");
+	$.ajax({
+	  url: "queryZtree.do",
+	  type: "POST",
+	  dataType:"Text",
+	  success: function(data){
+		  alert(data);
+	  },
+	  error : function(data) {  
+        alert("error");
+      }  
+	});
 	t = $.fn.zTree.init(t, setting, zNodes);
 	var zTree = $.fn.zTree.getZTreeObj("tree");
 	zTree.selectNode(zTree.getNodeByParam("id", 101));

@@ -6,6 +6,7 @@
 <hibernate-configuration>
 	<session-factory>
 		<mapping class="com.yunat.workflow.web.pojo.Contact" />
+		<mapping class="com.yunat.workflow.development.pojo.ZtreeNode" />
 		<mapping class="com.yunat.workflow.login.pojo.AdminInfo" />
 	</session-factory>
 
