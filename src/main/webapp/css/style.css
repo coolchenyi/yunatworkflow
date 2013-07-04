@@ -1133,8 +1133,10 @@ input.search{
 	height:30px;
 }
 #TabDetails{
+	margin:0 auto;
+	margin-top:20px;
 	position:relative;
-	width:812px;
+	width:1000px;
 }
 .newButton{
 	position:absolute;

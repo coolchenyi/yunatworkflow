@@ -7,8 +7,9 @@
             padding:0;   
             margin:0 auto;  
             border-collapse: collapse;  
-            width:100%;
-            height:100%;
+            width:90%;
+            height:90%;
+            margin-bottom:5px;
         }  
         th {  
             border: 1px solid #D3D3D3;  
@@ -29,17 +30,20 @@
 
 
 
-<div id="uplandDiv" style="width:100%; height:100%;border:0px solid #D3D3D3;background-color: #FFFFFF;">
-<div style="margin-top:20px">
+<div id="uplandDiv" style="width:100%; height:715px;border:0px solid #D3D3D3;background-color: #FFFFFF;">
+<div style="margin-top:20px;margin-left:10px">
 <span style="font-family:Verdana; font-size:13px;">任务名称:任务1</span>
 </div>
-<div style="margin-top:20px">
+<div style="margin-top:20px;margin-left:10px">
 	<form method="post" action="/form" enctype="multipart/form-data">  
 	    <input type="file" name="file"/>  
 	    <input type="submit"/>  
 	</form>  
 </div>
-<div style="margin-top:20px">
+<div style="margin-top:20px;margin-left:10px">
+<span style="font-family:Verdana; font-size:13px;">附件列表：</span>
+</div>
+<div style="margin-top:5px">
 	<table>  
 	<tr>  
 	  <th>a</th>  

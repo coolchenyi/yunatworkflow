@@ -136,18 +136,34 @@ public class DevelopmentController {
 		developmentService.saveZtreeNodeContent(zNodeJson);
 	}
 
+	/**
+	 * <p>[描述方法实现的功能]</p>
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @return: ModelAndView
+	 * @author: 邱路平 - luping.qiu@huaat.com
+	 * @date: Created on Jul 4, 2013 10:10:00 AM
+	 */
 	@RequestMapping(value = "deveopmentview.do")
 	public ModelAndView getview(HttpServletRequest request,
 			HttpServletResponse response) {
-		ModelAndView mv = new ModelAndView("/development/develop", "command",
-				"LOGIN SUCCESS ");
+		ModelAndView mv = new ModelAndView("/development/develop");
 		return mv;
 	}
 
+	/**
+	 * <p>[描述方法实现的功能]</p>
+	 * 
+	 * @return
+	 * @return: ModelAndView
+	 * @author: 邱路平 - luping.qiu@huaat.com
+	 * @date: Created on Jul 4, 2013 10:10:08 AM
+	 */
 	@RequestMapping(value = "upload.do")
 	public ModelAndView login() {
-		ModelAndView mv = new ModelAndView("/development/upload", "command",
-				"LOGIN SUCCESS");
+		ModelAndView mv = new ModelAndView("/development/upload");
 		return mv;
 	}
 }

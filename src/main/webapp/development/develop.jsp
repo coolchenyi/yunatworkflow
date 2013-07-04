@@ -1,9 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>调度项目</title>
 <link rel="stylesheet" href="css/layout.css" type="text/css" />
 <link rel="stylesheet" href="css/zTreeStyle/zTreeStyle.css" type="text/css" />
 <script type="text/javascript" src="jquery/jquery-1.4.4.min.js"></script>
@@ -16,15 +11,7 @@
 <script src="jquery/jquery.alerts.js" type="text/javascript"></script>
 <link href="css/jquery.alerts.css" rel="stylesheet" type="text/css" media="screen" />
 
-</head>
-
-<body>
-<div id="container">
-  <div class="menu">
-	<div id="developCenter" name="developCenter" class="menu-item menu-item-active">开发中心</div>
-	<div id="workflowCenter" name="workflowCenter" class="menu-item">流程中心</div>
-	<div id="controlCenter" name="controlCenter" class="menu-item">调度中心</div>
-  </div>
+<div id="container"  style="margin-top:5px">
   <div id="developCenterDiv" style="display:block">
     <div id="sidebar"><ul id="tree" class="ztree" style="width:260px; overflow:auto;"></ul></div>
     <div id="divButton">
@@ -41,7 +28,7 @@
     <div class="margin"></div>
     <div id="divText">
 		<!-- <span id="scriptsid"></span> -->
-    	<textarea id="scripts" cols="87" rows="17" id="content" style="border: 1 solid #D3D3D3;LINE-HEIGHT:18px;padding: 3px;"></textarea>
+    	<textarea id="scripts" id="content" style="height:310px"></textarea>
     </div>
     <div class="margin"></div>
     <div id="divLog">
@@ -49,16 +36,8 @@
 	<span id="logsid" value="日志">日志</span><input id="clear" type="button" value="清空" style="background:transparent;border-width:1px;float:right;">
 	</div>
 	<div>
-	<textarea id="logs" cols="87" rows="16" id="content" style="border: 1 solid #D3D3D3;LINE-HEIGHT:18px;padding: 3px;overflow-x:auto"></textarea>
+	<textarea id="logs" id="content" style="height:310px"></textarea>
 	</div>
     </div>
   </div>
-  <div id="workflowCenterDiv" style="display:none">
-    <div class="divbc">This is the workflow center.</div>
-  </div>
-  <div id="controlCenterDiv" style="display:none">
-    <div class="divbc">This is the control center.</div>
-  </div>
 </div>
-</body>
-</html>

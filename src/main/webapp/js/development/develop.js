@@ -1,18 +1,4 @@
 $(function(){
-	$("div[id$='Center']").click(function(){
-		$("div[id$='Center']").each(function(index,domEle) {
-		    $(domEle).removeClass("menu-item-active");	
-		});
-		$(this).addClass("menu-item-active");
-		$("div[id$='CenterDiv']").each(function(index,domEle) {
-		    $(domEle).css("display","none");	
-		});
-		$("#"+$(this).attr("name")+"Div").css("display","block");
-
-	});
-	$("span[id^='_span']").click(function(){
-		$("#scripts").val($(this).attr("name"));	
-	});
 	$("#save").click(function(){
 		if($("#idhidden").val() == ""){
 			return false;
@@ -41,10 +27,10 @@ $(function(){
 		var timestamp=(new Date()).valueOf();
 		if ('WebSocket' in window)
 			ws = new WebSocket(
-					"ws://10.200.190.191:8080/yunatworkflow/mywebsocket"+timestamp+".socket");
+					"ws://localhost:8080/yunatworkflow/mywebsocket"+timestamp+".socket");
 		else if ('MozWebSocket' in window)
 			ws = new MozWebSocket(
-					"ws://10.200.190.191:8080/yunatworkflow/mywebsocket"+timestamp+".socket");
+					"ws://localhost:8080/yunatworkflow/mywebsocket"+timestamp+".socket");
 		else
 			alert("not support");
 		ws.onmessage = function(evt) {
@@ -327,7 +313,7 @@ $(document).ready(function(){
 		  zNodes = data;
 		  t = $.fn.zTree.init(t, setting, zNodes);
 		  var zTree = $.fn.zTree.getZTreeObj("tree");
-		  zTree.selectNode(zTree.getNodeByParam("id", "1"));
+		  zTree.expandNode(zTree.getNodeByParam("id", "1"));
 	  },
 	  error : function(data) {  
         alert("error");
