@@ -17,5 +17,8 @@ public class AdminInfoDAOImpl implements AdminInfoDAO {
 				AdminInfo.class, username);
 		return admin;
 	}
+	
+	public void addAdminInfo(AdminInfo adminInfo){
+	}
 
 }

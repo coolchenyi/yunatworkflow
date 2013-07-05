@@ -1,14 +1,12 @@
 body { font-family:Verdana; font-size:14px; margin:0;}
 
-#container {margin:0 auto; width:1000px;}
-#header { height:100px; margin-bottom:5px;border:1px solid #96C2F1;background-color: #EFF7FF;}
+#container {margin:0 auto; width:1000px;border:1px solid #D3D3D3;background-color: #FFFFFF;}
 #develop #workflow #control{ margin-bottom:5px;}
-#sidebar { float:left; width:260px; height:714px; border:1px solid #D3D3D3;background-color: #FFFFFF;}
-#divButton { float:right; width:725px; height:40px;border:1px solid #D3D3D3;background-color: #FFFFFF;}
-#divText { float:right; width:725px; height:340px; border:0px solid #D3D3D3;background-color: #FFFFFF;}
-#divLog { float:right; width:725px; height:320px; border:0px solid #D3D3D3;background-color: #FFFFFF;}
+#sidebar { float:left; width:260px; height:715px;border:1px solid #D3D3D3;background-color: #FFFFFF; margin-top:5px; }
+#divButton { float:right; width:725px; height:40px;}
+#divText { float:right; width:725px; height:340px; }
+#divLog { float:right; width:725px; height:320px; }
 .margin {float:right; width:725px; margin-bottom:5px;}
-.divbc { float:right; width:1000px; height:714px; border:1px solid #D3D3D3;background-color: #FFFFFF;}
 
 
 .menu {
@@ -67,4 +65,21 @@ body { font-family:Verdana; font-size:14px; margin:0;}
 	background-position:-144px 0; 
 	vertical-align:top; 
 	*vertical-align:middle
+}
+input,button,select,textarea{outline:none;}
+textarea {
+resize:none;
+-moz-box-shadow:1px 1px 0 #E7E7E7;
+-moz-box-sizing:border-box;
+border-color:#CCCCCC #999999 #999999 #CCCCCC;
+border-style:solid;
+border-width:1px;
+font-family:arial,sans-serif;
+font-size:13px;
+margin:0px auto;
+outline-color:-moz-use-text-color;
+outline-style:none;
+outline-width:medium;
+padding:2px;
+width:100%;
 }
