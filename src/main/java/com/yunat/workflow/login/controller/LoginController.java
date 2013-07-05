@@ -14,6 +14,10 @@ import com.yunat.workflow.login.domain.LoginForm;
 import com.yunat.workflow.login.pojo.AdminInfo;
 import com.yunat.workflow.login.service.LoginService;
 
+/**
+ * @author chenyi8888
+ * 
+ */
 @Controller
 public class LoginController {
 
@@ -40,9 +44,10 @@ public class LoginController {
 			return mv;
 		}
 		logger.info("the user=" + tmp.getUsername() + "is login sucess!");
-		ModelAndView mv = new ModelAndView("/development/develop", "command",
+		ModelAndView mv = new ModelAndView("/mainbase", "command",
 				"LOGIN SUCCESS, " + username);
+		logger.info("tmp" + tmp.getUsername() + " " + tmp.getPassword());
+
 		return mv;
 	}
-
 }

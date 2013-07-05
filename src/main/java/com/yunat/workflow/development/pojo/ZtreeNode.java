@@ -17,9 +17,8 @@ import javax.persistence.Table;
 public class ZtreeNode {
 
 	@Id
-	@GeneratedValue
-	@Column(name = "tid")
-	private String tid = null;
+	@Column(name = "id")
+	private String id = null;
 	
 	@Column(name = "pid")
 	private String pid = null;
@@ -45,12 +44,12 @@ public class ZtreeNode {
 	@Column(name = "group_id")
 	private String group_id = null;
 
-	public String getTid() {
-		return tid;
+	public String getId() {
+		return id;
 	}
 
-	public void setTid(String tid) {
-		this.tid = tid;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getPid() {

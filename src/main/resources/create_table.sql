@@ -7,7 +7,7 @@ DEFAULT CHARACTER SET =utf8
 COLLATE = utf8_general_ci;
 
 CREATE TABLE `ztree` (
-  `tid` varchar(32) COLLATE utf8_bin NOT NULL,
+  `id` varchar(32) COLLATE utf8_bin NOT NULL,
   `pid` varchar(32) COLLATE utf8_bin DEFAULT NULL,
   `task_id` varchar(32) COLLATE utf8_bin DEFAULT NULL,
   `name` varchar(64) COLLATE utf8_bin NOT NULL,
