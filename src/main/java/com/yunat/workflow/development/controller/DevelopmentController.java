@@ -9,15 +9,23 @@
  */
 package com.yunat.workflow.development.controller;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.yunat.workflow.common.WorkflowProperties;
 import com.yunat.workflow.development.domain.AttachmentDomain;
+import com.yunat.workflow.development.domain.RuleDomain;
 import com.yunat.workflow.development.domain.Ztree;
 import com.yunat.workflow.development.service.DevelopmentService;
 
@@ -219,5 +227,102 @@ public class DevelopmentController {
 	@RequestMapping(value = "queryattachment.do")
 	public List<AttachmentDomain> queryAttachmentList(AttachmentDomain ad) {
 		return developmentService.queryAttachmentByTaskId(ad.getTask_id());
+	}
+	
+	/**
+	 * <p>上传附件</p>
+	 * 
+	 * @param name
+	 * @param file
+	 * @return
+	 * @return: String
+	 * @author: 邱路平 - luping.qiu@huaat.com
+	 * @throws FileNotFoundException 
+	 * @date: Created on Jul 5, 2013 2:12:36 PM
+	 */
+	@RequestMapping(value = "uploadfile.do", method = RequestMethod.POST)  
+    public String handleFormUpload(AttachmentDomain ad,@RequestParam("file") MultipartFile file) throws Exception { 
+        //MultipartFile是对当前上传的文件的封装，当要同时上传多个文件时，可以给定多个MultipartFile参数  
+		/* 获取上传的文件名称 */
+		String fileNameLong = file.getOriginalFilename();
+		/* 获取文件扩展名 */
+		//String extensionName = fileNameLong.substring(fileNameLong.lastIndexOf(".") + 1);
+		String attachmentPath = WorkflowProperties.getInstance().getValue("attachmentpath");
+		File fileDir = new File(attachmentPath +ad.getTask_id()+"/");
+		if (!fileDir.exists()) {
+		   fileDir.mkdirs();
+		}
+		if (!file.isEmpty()) {
+			FileOutputStream out;
+			out = new FileOutputStream(attachmentPath +ad.getTask_id()+"/" +fileNameLong);
+			out.write(file.getBytes()); // 写入文件
+			out.close();
+		}
+		ad.setFile_name(fileNameLong);
+		developmentService.insertAttachment(ad);
+		return "/development/upload";
+    } 
+	
+	/**
+	 * <p>删除附件</p>
+	 * 
+	 * @param ad
+	 * @return: void
+	 * @author: 邱路平 - luping.qiu@huaat.com
+	 * @date: Created on Jul 9, 2013 6:14:47 PM
+	 */
+	@ResponseBody
+	@RequestMapping(value = "deleteattachment.do")
+	public void deleteAttachment(AttachmentDomain ad){
+		String attachmentPath = WorkflowProperties.getInstance().getValue("attachmentpath");
+		File file = new File(attachmentPath +ad.getTask_id()+"/"+ad.getFile_name());
+		if(file.exists()){
+			file.delete();
+		}
+		developmentService.deleteAttachment(ad);
+	}
+	
+	/**
+	 * <p>查询规则列表</p>
+	 * 
+	 * @param rd
+	 * @return
+	 * @return: List<RuleDomain>
+	 * @author: 邱路平 - luping.qiu@huaat.com
+	 * @date: Created on Jul 10, 2013 6:27:10 PM
+	 */
+	@ResponseBody
+	@RequestMapping(value = "queryrulelist.do")
+	public List<RuleDomain> queryRuleList(RuleDomain rd){
+		return developmentService.queryRuleByTaskId(rd.getTask_id());
+	}
+	
+	/**
+	 * <p>插入新规则</p>
+	 * 
+	 * @param rd
+	 * @return: void
+	 * @author: 邱路平 - luping.qiu@huaat.com
+	 * @date: Created on Jul 10, 2013 6:30:07 PM
+	 */
+	@ResponseBody
+	@RequestMapping(value = "addrule.do")
+	public List<RuleDomain> addRule(RuleDomain rd){
+		developmentService.insertRule(rd);
+		return developmentService.queryRuleByTaskId(rd.getTask_id());
+	}
+	
+	/**
+	 * <p>删除规则</p>
+	 * 
+	 * @param rd
+	 * @return: void
+	 * @author: 邱路平 - luping.qiu@huaat.com
+	 * @date: Created on Jul 10, 2013 6:31:15 PM
+	 */
+	@ResponseBody
+	@RequestMapping(value = "deleterule.do")
+	public void deleteRule(RuleDomain rd){
+		developmentService.deleteRule(rd);
 	}
 }

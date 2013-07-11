@@ -19,10 +19,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.yunat.workflow.development.dao.AttachmentDAO;
+import com.yunat.workflow.development.dao.RuleDAO;
 import com.yunat.workflow.development.dao.ZtreeNodeDAO;
 import com.yunat.workflow.development.domain.AttachmentDomain;
+import com.yunat.workflow.development.domain.RuleDomain;
 import com.yunat.workflow.development.domain.Ztree;
 import com.yunat.workflow.development.pojo.Attachment;
+import com.yunat.workflow.development.pojo.Rule;
 import com.yunat.workflow.development.pojo.ZtreeNode;
 
 /**
@@ -41,6 +44,9 @@ public class DevelopmentServiceImpl implements DevelopmentService {
 	
 	@Autowired
 	private AttachmentDAO attachmentDAO;
+	
+	@Autowired
+	private RuleDAO ruleDAO;
 
 	/**
 	 * <p>
@@ -193,6 +199,118 @@ public class DevelopmentServiceImpl implements DevelopmentService {
 			ad.setDescription(ap.getDescription());
 			attachmentDomain.add(ad);
 		}
+		System.out.println(attachmentDomain.size());
 		return attachmentDomain;
+	}
+
+	/**
+	 * <p>上传新附件保存附件信息</p>
+	 * 
+	 * @see com.yunat.workflow.development.service.DevelopmentService#insertAttachment(com.yunat.workflow.development.domain.AttachmentDomain)
+	 * @author: 邱路平 - luping.qiu@huaat.com 
+	 * @date: Created on Jul 5, 2013 4:58:16 PM
+	 */
+	@Transactional
+	public void insertAttachment(AttachmentDomain attachmentDomain) {
+		Attachment ap =new Attachment();
+		ap.setFid(UUID.randomUUID().toString().replace("-", ""));
+		ap.setTask_id(attachmentDomain.getTask_id());
+		ap.setFile_name(attachmentDomain.getFile_name());
+		ap.setDescription(attachmentDomain.getDescription());
+		attachmentDAO.insertAttachment(ap);
+	}
+
+	/**
+	 * <p>删除附件</p>
+	 * 
+	 * @see com.yunat.workflow.development.service.DevelopmentService#deleteAttachment(com.yunat.workflow.development.domain.AttachmentDomain)
+	 * @author: 邱路平 - luping.qiu@huaat.com 
+	 * @date: Created on Jul 9, 2013 6:13:05 PM
+	 */
+	@Transactional
+	public void deleteAttachment(AttachmentDomain attachmentDomain) {
+		Attachment ap =new Attachment();
+		ap.setFid(attachmentDomain.getFid());
+		attachmentDAO.deleteAttachment(ap);
+	}
+
+	/**
+	 * <p>查询规则</p>
+	 * 
+	 * @see com.yunat.workflow.development.service.DevelopmentService#queryRuleByTaskId(java.lang.String)
+	 * @author: 邱路平 - luping.qiu@huaat.com 
+	 * @date: Created on Jul 10, 2013 5:46:02 PM
+	 */
+	@Transactional
+	public List<RuleDomain> queryRuleByTaskId(String task_id) {
+		List<Rule> attachmentPojo = ruleDAO.queryRuleList(task_id);
+		List<RuleDomain> ruleDomain = new ArrayList<RuleDomain>();
+		for(Rule rp :attachmentPojo){
+			RuleDomain rd = new RuleDomain();
+			rd.setRid(rp.getRid());
+			rd.setTask_id(rp.getTask_id());
+			rd.setOriginal_value(rp.getOriginal_value());
+			rd.setNew_value(rp.getNew_value());
+			rd.setRule_type(rp.getRule_type());
+			ruleDomain.add(rd);
+		}
+		return ruleDomain;
+	}
+
+	/**
+	 * <p>插入规则</p>
+	 * 
+	 * @see com.yunat.workflow.development.service.DevelopmentService#insertRule(com.yunat.workflow.development.domain.RuleDomain)
+	 * @author: 邱路平 - luping.qiu@huaat.com 
+	 * @date: Created on Jul 10, 2013 5:46:02 PM
+	 */
+	@Transactional
+	public void insertRule(RuleDomain ruleDomain) {
+		Rule rp = new Rule();
+		rp.setRid(UUID.randomUUID().toString().replace("-", ""));
+		rp.setOriginal_value(ruleDomain.getOriginal_value());
+		rp.setNew_value(ruleDomain.getNew_value());
+		rp.setRule_type(ruleDomain.getRule_type());
+		rp.setTask_id(ruleDomain.getTask_id());
+		ruleDAO.insertRule(rp);
+	}
+
+	/**
+	 * <p>删除规则</p>
+	 * 
+	 * @see com.yunat.workflow.development.service.DevelopmentService#deleteRule(com.yunat.workflow.development.domain.RuleDomain)
+	 * @author: 邱路平 - luping.qiu@huaat.com 
+	 * @date: Created on Jul 10, 2013 5:46:02 PM
+	 */
+	@Transactional
+	public void deleteRule(RuleDomain ruleDomain) {
+		Rule rp = new Rule();
+		rp.setRid(ruleDomain.getRid());
+		ruleDAO.deleteRule(rp);
+	}
+
+	/**
+	 * <p>规则应用</p>
+	 * 
+	 * @see com.yunat.workflow.development.service.DevelopmentService#ruleApply(java.lang.String, java.lang.String)
+	 * @author: 邱路平 - luping.qiu@huaat.com 
+	 * @date: Created on Jul 11, 2013 10:16:53 AM
+	 */
+	@Override
+	public String ruleApply(String task_id, String script) {
+		List<Rule> attachmentPojo = ruleDAO.queryRuleList(task_id);
+		for(Rule r:attachmentPojo){
+			if(r.getRule_type().equals("contant")){
+				script = script.replaceAll(r.getOriginal_value(), r.getNew_value());
+			}
+			if(r.getRule_type().equals("variable")){
+				script = script.replaceAll(r.getOriginal_value(), r.getNew_value());
+			}
+			if(r.getRule_type().equals("regex")){
+				script = script.replaceAll(r.getOriginal_value(), r.getNew_value());
+			}
+				
+		}
+		return script;
 	}
 }

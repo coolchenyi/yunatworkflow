@@ -9,6 +9,7 @@
 		<mapping class="com.yunat.workflow.development.pojo.ZtreeNode" />
 		<mapping class="com.yunat.workflow.login.pojo.AdminInfo" />
 		<mapping class="com.yunat.workflow.development.pojo.Attachment" />
+		<mapping class="com.yunat.workflow.development.pojo.Rule" />
 	</session-factory>
 
 </hibernate-configuration>
