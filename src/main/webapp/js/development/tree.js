@@ -19,9 +19,6 @@ $(function(){
 		      }  
 			});
 	});
-	$("#clear").click(function(){
-		$("#logs").val("");
-	});
 	$("#run").click(function(){
 		if($.trim($("#scripts").val())==""){
 			jAlert("无运行的脚本！","友情提示");
@@ -35,10 +32,10 @@ $(function(){
 		var timestamp=(new Date()).valueOf();
 		if ('WebSocket' in window)
 			ws = new WebSocket(
-					"ws://localhost:8080/yunatworkflow/mywebsocket"+timestamp+".socket");
+					"ws://10.200.187.24:8081/yunatworkflow/mywebsocket"+timestamp+".socket");
 		else if ('MozWebSocket' in window)
 			ws = new MozWebSocket(
-					"ws://localhost:8080/yunatworkflow/mywebsocket"+timestamp+".socket");
+					"ws://10.200.187.24:8081/yunatworkflow/mywebsocket"+timestamp+".socket");
 		else
 			alert("not support");
 		ws.onmessage = function(evt) {
@@ -50,13 +47,30 @@ $(function(){
 		};
 
 		ws.onclose = function(evt) {
-			alert("close");
+//			alert("close");
 		};
 
 		ws.onopen = function(evt) {
-			alert("open");
+//			alert("open");
 		};
-		setTimeout(function(){ws.send($("#typehidden").val()+":"+$("#scripts").val())},1000);
+		var scripts = $("#scripts").val();
+		$.ajax({
+			  url: "queryrulelist.do",
+			  type: "POST",
+			  dataType:"json",
+			  data:({"task_id":$("#taskidhidden").val()}),
+			  async:false,
+			  success: function(data){
+				  for (var i=0;i<data.length;i++){
+					  var reg =new RegExp(data[i].original_value,"g"); 
+					  scripts = scripts.replace(reg,data[i].new_value)
+				  }
+				  setTimeout(function(){ws.send($("#typehidden").val()+"%:%"+scripts+"%:%"+$("#taskidhidden").val())},1000);
+			  },
+			  error : function(data) {  
+		        alert("error");
+		      }  
+		});
 	});
 	$("#upload").click(function(){
 		if($("#taskidhidden").val()== ""){

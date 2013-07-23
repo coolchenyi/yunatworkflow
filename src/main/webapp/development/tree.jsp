@@ -28,7 +28,7 @@
     <div class="margin"></div>
     <div id="divLog">
     <div>
-	<span id="logsid" value="日志">日志</span><input id="clear" type="button" value="清空" style="background:transparent;border-width:1px;float:right;">
+	<span id="logsid" value="日志">日志</span>
 	</div>
 	<div>
 	<textarea id="logs" id="content" style="height:310px"></textarea>

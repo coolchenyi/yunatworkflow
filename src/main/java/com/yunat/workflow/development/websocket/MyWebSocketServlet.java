@@ -14,6 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.catalina.websocket.StreamInbound;
 import org.apache.catalina.websocket.WebSocketServlet;
 
+import com.yunat.workflow.common.SpringContext;
+
+import com.yunat.workflow.common.SpringContext;
+
 /**
  * <p>[描述信息：说明类的基本功能]</p>
  *
@@ -38,9 +42,11 @@ public class MyWebSocketServlet extends WebSocketServlet {
 	@Override
 	protected StreamInbound createWebSocketInbound(String arg0,HttpServletRequest arg1) {
 		// TODO Auto-generated method stub
-		System.out.println("##########");  
-		System.out.println(arg1.getSession().getId().toString());  
-        return new MyMessageInbound(arg1.getSession().getId().toString());  
+		System.out.println(arg1.getSession().getId().toString()); 
+		MyMessageInbound bean = (MyMessageInbound) SpringContext.getContext().getBean("myMessageInbound");
+		bean.setSsid(arg1.getSession().getId().toString());
+		return bean;
+//        return new MyMessageInbound(arg1.getSession().getId().toString());  
 	}
 
 }
