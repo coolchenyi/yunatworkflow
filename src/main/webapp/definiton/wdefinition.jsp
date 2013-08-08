@@ -1,58 +1,131 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>调度项目</title>
-<link rel="stylesheet" href="css/layout.css" type="text/css" />
 <link rel="stylesheet" href="css/zTreeStyle/zTreeStyle.css" type="text/css" />
-<script type="text/javascript" src="jquery/jquery-1.4.4.min.js"></script>
 <script type="text/javascript" src="jquery/jquery.ztree.core-3.5.js"></script>
 <script type="text/javascript" src="jquery/jquery.ztree.excheck-3.5.js"></script>
 <script type="text/javascript" src="jquery/jquery.ztree.exedit-3.5.js"></script>
-<script type="text/javascript" src="js/development/develop.js"></script>
+
+<script type="text/javascript" src="js/definition/definition.js"></script>
 <script src="jquery/jquery.ui.draggable.js" type="text/javascript"></script>
-		
+
 <script src="jquery/jquery.alerts.js" type="text/javascript"></script>
 <link href="css/jquery.alerts.css" rel="stylesheet" type="text/css" media="screen" />
 
-</head>
+<style type="text/css">
+SELECT, INPUT[type="text"] {
+    width: 160px;
+    box-sizing: border-box;
+}
+SECTION {
+    padding: 8px;
+    background-color: #f0f0f0;
+    overflow: auto;
+}
+SECTION > DIV {
+    float: left;
+    padding: 4px;
+}
+SECTION > DIV + DIV {
+    width: 40px;
+    text-align: center;
+}
+#wcontainer {margin:0 auto; width:1000px;border:0px solid #D3D3D3;background-color: #FFFFFF;}
+#develop #workflow #control{ margin-bottom:5px;}
+#sidebar { float:left; width:260px; height:715px;border:1px solid #D3D3D3;background-color: #FFFFFF; margin-top:5px; }
+#contentbar { float:right; width:725px; height:715px; }
+#divButton { float:right; width:725px; height:40px;border:1px solid #D3D3D3;background-color: #FFFFFF; margin-top:5px;}
+#divText { float:left; width:720px; height:300px; }
+#divLog { float:right; width:725px; height:320px; }
+.margin {float:right; width:725px; margin-bottom:5px;}
+</style>
 
-<body>
-<body>
-<div id="container">
-  <div class="menu">
-	<div id="developCenter" name="developCenter" class="menu-item menu-item-active">开发中心</div>
-	<div id="workflowCenter" name="workflowCenter" class="menu-item">流程中心</div>
-	<div id="controlCenter" name="controlCenter" class="menu-item">调度中心</div>
-  </div>
-  <div id="developCenterDiv" style="display:block">
-    <div id="sidebar"><ul id="tree" class="ztree" style="width:260px; overflow:auto;"></ul></div>
+<div id="wcontainer" style="margin-top:5px">
+  <div id="workflowCenterDiv" style="display:block">
+    <div id="sidebar"><ul id="wtree" class="ztree"></ul></div>
     <div id="divButton">
-	<div class='buttons' style="margin-top: 10px;">
-	<input id="run" type="button" value="运行" style="background:transparent;border-width:1px">
-	<input id="save" type="button" value="保存" style="background:transparent;border-width:1px">
-	<input id="upload" type="button" value="上传附件"  style="background:transparent;border-width:1px;float:right;">
-	<input id="config" type="button" value="变量规则" style="background:transparent;border-width:1px;float:right;">
-	</div>
+		<input id="save" type="button" value="保存" style="width:100px;border-width:1px;float:left;margin-top:10px;">
     </div>
     <div class="margin"></div>
-    <div id="divText">
-	<span id="scriptsid" value="XXXSQL">XXXSQL</span>
-    	<textarea id="scripts" cols="87" rows="17" id="content" style="border: 1 solid #888888;LINE-HEIGHT:18px;padding: 3px;"></textarea>
+	<div id="contentbar">
+        <div id="properties" >
+            <div>
+              <input type="button" id="pbtnNodeType" value="Node Type:" style="width:100px;"/>
+              <select id="nodeType">
+                <option value="none" selected="selected">select type of node</option>
+                <option value="start">Start</option>
+                <option value="end">End</option>
+                <option value="autorun">Autorun</option>
+                <option value="jms">JMS</option>
+                <option value="sms">SMS</option>
+                <option value="email">EMAIL</option>
+              </select>
+            </div>
+            <div>
+              <div id="ntConfigjms" style="display:none;">
+                <div class="margin"></div>
+                <input type="button" id="btnJmsApp" value="Application:" style="width:100px;"/>
+                <select id="jmsApp">
+                  <option value="mq">MQ</option>
+                </select>
+              </div>
+              <div id="ntConfigsms" style="display:none;">
+                <div class="margin"></div>
+                <input type="button" id="btnSmsNumber" value="Number:" style="width:100px;"/>
+                <input type="text" name="smsNumber" />
+              </div>
+              <div id="ntConfigemail" style="display:none;">
+                <div class="margin"></div>
+                <input type="button" id="btnEmail" value="Email:" style="width:100px;"/>
+                <input type="text" name="emailNumber" />
+              </div>
+            </div>
+            <div class="margin"></div>
+            <div>
+              <input type="button" id="pbtnHookType" value="Hook Type:" style="width:100px;"/>
+              <select id="hookType">
+                <option value="none" selected="selected">select type of hook</option>
+                <option value="hive">Hive</option>
+              </select>
+            </div>
+            <div class="margin"></div>
+            <div>
+              <div>
+                <input type="button" id="pbtnObj" value="Hook Obj:" style="width:100px;"/>
+                <select id="ss_hookObj">
+                  <option value="none" selected="selected">select hook object</option>
+                  <option value="1.hive">1.hive</option>
+                  <option value="2.hive">2.hive</option>
+                </select>
+              </div>
+              <div class="margin"></div>
+              <div id="divText">
+    	        <textarea id="scripts" style="height:290px"></textarea>
+              </div>
+            </div>
+            <div class="margin"></div>
+            <div>
+              <input type="button" id="pbtnTo" value="To:" style="width:100px;"/>
+              <div class="margin"></div>
+              <section class="container">
+                <div>
+                  <select id="leftValues" size="5" multiple>
+                    <option value="1">Node 1</option>
+                    <option value="2">Node 2</option>
+                    <option value="3">Node 3</option>
+                    <option value="4">Node 4</option>
+                    <option value="5">Node 5</option>
+                  </select>
+                </div>
+                <div>
+                  <input type="button" id="btnRight" value="&gt;&gt;" />
+                  <input type="button" id="btnLeft" value="&lt;&lt;" />
+                </div>
+                <div>
+                  <select id="rightValues" size="5" multiple>
+                  </select>
+                </div>
+              </section>
+            </div>
+        </div>
     </div>
-    <div class="margin"></div>
-    <div id="divLog">
-	<span id="logsid" value="日志">日志</span>
-	<textarea id="logs" cols="87" rows="16" id="content" style="border: 1 solid #888888;LINE-HEIGHT:18px;padding: 3px;"></textarea>
-    </div>
-  </div>
-  <div id="workflowCenterDiv" style="display:none">
-    <div class="divbc">This is the workflow center.</div>
-  </div>
-  <div id="controlCenterDiv" style="display:none">
-    <div class="divbc">This is the control center.</div>
   </div>
 </div>
-</body>
-</html>

@@ -21,5 +21,11 @@ public class workflowController {
 			HttpServletResponse response) {
 		return null;
 	}
+	
+	@RequestMapping(value = "workflowview.do")
+	public ModelAndView getview() {
+		ModelAndView mv = new ModelAndView("/definiton/wdefinition");
+		return mv;
+	}
 
 }
